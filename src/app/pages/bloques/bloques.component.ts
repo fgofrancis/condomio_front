@@ -63,4 +63,16 @@ export class BloquesComponent implements OnInit {
     })
 
   }
+  /**
+   * Funcion q suma un mes a una fecha
+   */
+  TestFecha(){
+    var enero = new Date(2022, 11, 25);
+    console.log('Fecha1 ', enero);
+    var febrero  = new Date(enero.setMonth(enero.getMonth()+1));
+    console.log('Fecha2', febrero);
+
+    let newFechacuota = new Date(2022, 13, 25 ); //Enero 25 del 2023
+    console.log('newFechacuota..: ', newFechacuota)
+  }
 }  

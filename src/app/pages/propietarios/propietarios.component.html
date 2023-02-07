@@ -38,8 +38,7 @@
                     </div>
                     <div class="col">
                         <div class="text-right">
-                            <button class="btn btn-primary" routerLink="/nomina/propietario/nuevo"
-                            >
+                            <button class="btn btn-primary" routerLink="/nomina/propietario/nuevo">
                                 <i class="fa fa-hospital-o"></i>
                                 Crear propietario
                             </button>
@@ -102,6 +101,14 @@
                         <button (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
                         &nbsp;
                         <button (click)="cambiarPagina(5)" class="btn btn-secondary">Siguientes</button>
+                    </div>
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary" (click)="reporte()">
+                                <i class="fa fa-print" aria-hidden="true"></i>
+                                Generar Reporte
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

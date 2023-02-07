@@ -21,7 +21,7 @@ import { ParametrosgeneralesComponent } from './parametrosgenerales/parametrosge
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProcnominaComponent } from './procnomina/procnomina.component';
 import { NominaDetalleComponent} from './procnomina/nomina-detalle.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+// import { RxjsComponent } from './rxjs/rxjs.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 import { BloquesComponent } from './bloques/bloques.component';
@@ -41,7 +41,8 @@ const routes: Routes = [
     canActivate:[ AuthGuard],
     canLoad:[ AuthGuard ],
     children:[
-      { path:'', component:RxjsComponent, data:{titulo: 'Rxjs'}},
+      // { path:'', component:RxjsComponent, data:{titulo: 'Rxjs'}},
+      { path:'', component: AcountSettingsComponent, data:{titulo: 'Configuraciòn'}},
       { path:'acount-setting', component: AcountSettingsComponent, data:{titulo: 'Configuraciòn'}},
      
       { path:'bloques', component: BloquesComponent, data:{titulo: 'Mantenimiento de Bloques'}},
@@ -53,7 +54,7 @@ const routes: Routes = [
       { path:'apartamentos', component: ApartamentosComponent, data:{titulo: 'Mantenimiento de Apartamentos'}},
       { path:'apartamento/:id', component: ApartamentoComponent, data:{titulo: 'Mantenimiento de Apartamento'}},
       
-      { path:'recibo', component: ReciboComponent, data:{titulo: 'Recibo'}},
+      { path:'recibo', component: ReciboComponent, data:{titulo: 'Aplicar pago'}},
       
       { path:'consultar-pagos', component:ConsultarPagosComponent, data:{titulo: 'Consultar Pagos'}},
       
@@ -87,7 +88,7 @@ const routes: Routes = [
       { path:'prcnomina/:idProcess', component:NominaDetalleComponent, data:{titulo: 'Nómina Detalle'}},
       { path:'prcnomina/:idProcess/:idEmpleado', component:NominaDetalleComponent, data:{titulo: 'Nómina Detalle'}},
      
-      { path:'rxjs', component: RxjsComponent, data:{titulo: 'Rxjs'}},
+      // { path:'rxjs', component: RxjsComponent, data:{titulo: 'Rxjs'}},
       
       //Rutas de ADMIN_ROLE agregar AdminGuard
       { path:'usuario',canActivate:[AdminGuard], component: UsuariosComponent, data:{titulo: 'Mantenimiento de Usuarios'}}

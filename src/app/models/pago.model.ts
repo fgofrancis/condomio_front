@@ -1,4 +1,6 @@
 import { Apartamento } from "./apartamento.model"
+import { Formapago} from "./formapago.model"
+
 
 export class Pago {
     constructor(
@@ -6,7 +8,10 @@ export class Pago {
         public idapartamento:Apartamento,
         public fechageneracion:Date,
         public monto:number,
-        public formapago:string,
-        public estatus:boolean
+        public idformapago:Formapago,
+        // public formapago:string,
+        public estatus:boolean,
+        public saldoantedelpago:number,
+        public saldodespuesdelpago:number,     
     ){}
 }

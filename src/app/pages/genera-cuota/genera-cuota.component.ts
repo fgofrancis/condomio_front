@@ -48,7 +48,7 @@ export class GeneraCuotaComponent implements OnInit, OnDestroy
       idpropietario:['',Validators.required],
       habitado:['']
     });
-
+ 
     this.fechacuotas = new Date(FECHABASE);
     // console.log('this.fechacuota..:',this.fechacuotas);
 
@@ -95,9 +95,13 @@ export class GeneraCuotaComponent implements OnInit, OnDestroy
     guardarApartamento(){}
 
   cargarApartamentos(){
-    this._apartamentoService.cargarApartamentos().subscribe(({apartamentos})=>{
-      console.log('Apartamentos..: ', apartamentos)
-      this.apartamentos = apartamentos
+    this._apartamentoService.cargarApartamentos().subscribe(
+      ({apartamentos})=>{
+        console.log('Apartamentos..: ', apartamentos)
+        this.apartamentos = apartamentos
+    },
+    (err) =>{
+      Swal.fire('Informativo',err.error?.msg,'error')
     })
   }
 

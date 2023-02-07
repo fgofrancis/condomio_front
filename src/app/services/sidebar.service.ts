@@ -13,7 +13,7 @@ export class SidebarService {
         {titulo: 'Bloques', url:'/nomina/bloques'},
         {titulo: 'Propietarios', url:'/nomina/propietarios'},
         {titulo: 'Apartamentos', url:'/nomina/apartamentos'},
-        {titulo: 'Recibos', url:'/nomina/recibo'},
+        {titulo: 'Aplicar pago', url:'/nomina/recibo'},
         {titulo: 'Consultar Pagos', url:'/nomina/consultar-pagos'},
         {titulo: 'Generar Cuotas', url:'/nomina/generacuotas'},
         {titulo: 'Empleado', url:'/nomina/empleado'},

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import {  Observable } from 'rxjs';
+import { delay, map, switchMap, take, tap } from 'rxjs/operators';
 import { Apartamento } from 'src/app/models/apartamento.model';
 import { Cuota } from 'src/app/models/cuota.model';
+import { Formapago } from 'src/app/models/formapago.model';
 import { ApartamentosService } from 'src/app/services/apartamentos.service';
 import { CuotasService } from 'src/app/services/cuotas.service';
 import { ReciboService } from 'src/app/services/recibo.service';
@@ -21,8 +23,23 @@ export class ReciboComponent implements OnInit {
   public apartamentos:Apartamento[] = [];
   public totalSaldo:number = 0;
   public idapartamento:string = ''
-  public montoPapgo:number = 0;
+
+  public montoPago:number = 0;
+  
+  public formapagos:Formapago[] = [];
+  public idformapago:string = '';
+  public comentarioPago:string = '';
+
+  public formapagoSeleccionada! : Formapago;
+  public isNotacredito : boolean = false;
+
   public isPagoHabilitado:boolean = false;
+
+  // public fechaPago:Date = new Date();
+  public fechaPago = new Date().toISOString().slice(0, 10);
+
+  private buscarCuota$ = new  Observable<any>();
+                            
 
   constructor( private _cuotaService:CuotasService,
                private _fb:FormBuilder,
@@ -30,6 +47,8 @@ export class ReciboComponent implements OnInit {
                private _reciboService:ReciboService) { }
 
   ngOnInit(): void {
+    // this.fechaPago = new Date();
+
     this.apartamentoForm = this._fb.group({
       codigo:['',Validators.required],
       planta:['',Validators.required],
@@ -39,57 +58,115 @@ export class ReciboComponent implements OnInit {
       habitado:['']
     })
 
-    this.cargarApartamentos()
+    this.cargarApartamentos();
+    this.buscarFormapago();
+
     this.apartamentoForm.get('codigo')?.valueChanges.subscribe(idapartamento=>{
-      console.log('Cambio apto', idapartamento);
       this.idapartamento = idapartamento;
+      console.log('Dime in ngOnInit()'); //Denny por que se dispara el ngOnInit() aquí?
+
+      //Denny, I´m confused now
+     this.buscarCuota$ = this._cuotaService.buscarCuotaByIdApartamento(this.idapartamento);
+
       this.buscar(idapartamento);
 
-      this.montoPapgo = 0;
+      this.montoPago = 0;
       this.isPagoHabilitado = false; 
     })
-   this.montoPapgo = 0; 
+   this.montoPago = 0; 
+   
   }
 
-  buscar(termino:string){
-      this._cuotaService.buscarCuotaByIdApartamento(termino)
+  buscar(idapartamento:string){
+    this._cuotaService.buscarCuotaByIdApartamento(idapartamento)
       .pipe(
         tap((cuota:any) =>{
-          this.totalSaldo = 0;
-          this.cuotas = cuota
-          this.cuotas.forEach((cuota)=>{
-              this.totalSaldo += cuota.saldo
-          })
+          this.calcDeudaTotal(cuota)
         })
       )
       .subscribe((cuota:any)=>{
             this.cuotas = cuota 
-            console.log('cuota..: ', cuota)
       })
   }
-
+ 
   guardarApartamento(){}
 
   cargarApartamentos(){
     this._apartamentoService.cargarApartamentos().subscribe(({apartamentos})=>{
       this.apartamentos = apartamentos
     })
-  }
+  };
+
+  buscarFormapago(){
+    this._reciboService.buscarFormapago().subscribe(
+      (formapagos)=>{
+        this.formapagos = formapagos
+      },
+      (err)=>{
+        console.log(err) // Denny esto está bién?
+      }
+    )
+  };
 
   aplicarPago(){
-    console.log('this.idapartamento..: ', this.idapartamento, this.montoPapgo)
-    const data = {idapartamento: this.idapartamento, monto:this.montoPapgo};
+    if(this.idformapago == ''){
+      Swal.fire('Forma de pago',`Debe Elegir una forma de pago`, 'error');
+      return
+    };
 
-    this._reciboService.pagoCuota(data).subscribe(resp=>{
-      Swal.fire('Recibo',`Pago de: ${ data.monto } Aplicado correctamente`, 'success');
-      console.log(resp)
-    })
+    if(this.isNotacredito){
+        if (this.comentarioPago == ''){
+          Swal.fire('Comentario',`Debe comentar la Nota de Crédito`, 'warning');
+          return;
+        } 
+    };
+    
+    this.isPagoHabilitado = false;
+
+    const data = {idapartamento: this.idapartamento, monto:this.montoPago,
+                  fecha:this.fechaPago, idformapago:this.idformapago, 
+                  comentario:this.comentarioPago
+    };
+
+    this._reciboService.pagoCuota(data)
+        .pipe(
+          delay(1000),
+          switchMap((resp)=>{
+            return this.buscarCuota$;
+          })
+        )
+        .subscribe(
+          (resp)=>{
+                this.montoPago = 0;
+                this.cuotas = resp;
+                this.calcDeudaTotal(resp);
+                Swal.fire('Recibo',`Pago de: ${ data.monto } Aplicado correctamente`, 'success');
+            },
+            (error)=>{
+              console.log(error);
+            }
+        );
   }
 
-  habilitarPago(montoPapgo:number){
-    if (montoPapgo > 0 ) 
-        this.isPagoHabilitado = true;
-    else
-      this.isPagoHabilitado = false
+  private calcDeudaTotal(cuotas:Cuota[]):void{
+    this.totalSaldo = 0;
+          this.cuotas = cuotas
+          this.cuotas.forEach((cuota)=>{
+              this.totalSaldo += cuota.saldo
+          });
+  }
+
+  habilitarPago(montoPago:number){
+    this.isPagoHabilitado = (montoPago > 0)? true: false;  
+  }
+
+  catFormapago(){
+    this.isNotacredito = false;
+    this.formapagoSeleccionada = this.formapagos.find(f => f._id === this.idformapago)!
+
+    if (this.formapagoSeleccionada.formapago === 'NotaCR'){
+      this.isNotacredito = true;
+    }
+
   }
 }

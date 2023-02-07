@@ -20,7 +20,7 @@ import { PagesComponent } from './pages.component';
 import { ParametrosgeneralesComponent } from './parametrosgenerales/parametrosgenerales.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProcnominaComponent } from './procnomina/procnomina.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+// import { RxjsComponent } from './rxjs/rxjs.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { EscalaComponent } from './escalasalarial/escala.component';
 import { ParametroComponent } from './parametrosgenerales/parametro.component';
@@ -52,7 +52,7 @@ import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.compo
     ConstribucionleyComponent,
     PagesComponent,
     AcountSettingsComponent,
-    RxjsComponent,
+    // RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
     CompaniaComponent,

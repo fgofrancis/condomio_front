@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// import { Img, PdfMakeWrapper } from 'pdfmake-wrapper';
 
-
+// pdfMake 
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 import { Apartamento } from 'src/app/models/apartamento.model';
 import { Propietario } from 'src/app/models/propietario.model';
@@ -62,6 +64,13 @@ export class PropietariosComponent implements OnInit {
         this.totalPropietario = total
       })
   }
+  imprimirPropietarios(){
+      // this.cargando = true;
+      this._propietarioService.cargarPropietarios().subscribe(({total, propietarios}) =>{
+        this.propietarios = propietarios;
+        this.totalPropietario = total
+      })
+  }
     
   eliminarPropietario(propietario: Propietario){
     Swal.fire({
@@ -97,12 +106,8 @@ export class PropietariosComponent implements OnInit {
       this.desde -= valor; 
       this.pagina = this.totalPropietario;
     }
-    // window.print() se usa para imprimir el HTML(lo que está en pantalla) a pdf 
-    // pdfMake.createPdf()
-
     this.cargarPropietarios();
 
-    this.generarPDF();
   }
 
   abrirModal(propietario: Propietario){
@@ -113,11 +118,67 @@ export class PropietariosComponent implements OnInit {
     this._modalAptoService.abrirModal();      
   
   }
-  generarPDF(){
-    // const pdf:PdfMakeWrapper = new PdfMakeWrapper();
-    // pdf.add('Hello word');
-    // pdf.create().open();
+  reporte(){
 
+    this.imprimirPropietarios();
+
+    let docDefinition:any ={
+      footer: {
+        columns: [
+          { text: 'Cosmos Digital SRL RNC:1-31-98720-6 Phone: 809-224-1509 Email:francisfiguereo@cdigital.com',
+            alignment: 'center',
+            fontSize:8,
+            bold:true,
+            color:'#560189'
+          }
+        ]
+      },
+      content:[
+        {  
+          text: 'CONDOMINIO PLAZA MIRADOR',  
+          fontSize: 16,  
+          alignment: 'center',  
+          color: '#047886'  
+        }, 
+        { text:'Ave. Anacaona #43, Bella Vista D.N, R.D',
+          alignment: 'center'
+        },
+        { text:'RNC 4-30-17865-9', alignment: 'center'},
+        { text:' '},
+
+        {
+          columns:[
+            [
+              {
+                text:'Listado de Propietarios',
+                bold:true,
+                color:'blue'
+              },
+            ],
+            [
+              {
+                text: `Fecha: ${new Date().toLocaleString()}`,
+                alignment: 'right'
+              }
+            ]
+          ]
+        },
+        {
+          table:{
+            headerRows: 1,
+            widths: ['*','auto', 'auto', 'auto'],
+            body: [
+              [  'PROPIETARIO', 'ID',  'PHONE CASA', 'PHONE MOVIL'],
+              ...this.propietarios.map(p => ([ p.nombre, p.identificacion, p.telefonos.casa, p.telefonos.celular])),
+              // ...this.invoice.products.map(p => ([p.name, p.price, p.qty, (p.price*p.qty).toFixed(2)])),
+               [{text: 'Total propietarios', colSpan: 3}, {}, {}, this.propietarios.reduce((sum, p)=> sum + (1), 0)]
+            ]
+          }
+        }
+      ]
+    }
+    const pdf = pdfMake.createPdf(docDefinition);
+    pdf.open();
   }
-
+  
 }
