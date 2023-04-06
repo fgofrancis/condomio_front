@@ -1,4 +1,13 @@
+
 import { NgModule } from '@angular/core';
+
+// import { NgModule,LOCALE_ID } from '@angular/core';
+
+//Date Import
+// import localePy from '@angular/common/locales/es-DO';
+// import {registerLocaleData } from '@angular/common';
+// registerLocaleData(localePy,'es-DO');
+
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +15,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { PipesModule } from '../pipes/pipes.module';
 import { SharedModule } from '../shared/shared.module';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; la usaré cuando actualice la ver de Angular a 15.0.0 o superior
 
 import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
 import { AsignacionesComponent } from './asignaciones/asignaciones.component';
@@ -36,7 +46,8 @@ import { ApartamentoComponent } from './apartamentos/apartamento.component';
 import { GeneraCuotaComponent } from './genera-cuota/genera-cuota.component';
 import { ReciboComponent } from './recibo/recibo.component';
 import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.component';
-
+import { CnsGeneralComponent } from './cns-general/cns-general.component';
+import { CnsGeneralPagosComponent } from './cns-general-pagos/cns-general-pagos.component';
 
 
 // PdfMakeWrapper.setFonts(pdfFonts);
@@ -72,6 +83,8 @@ import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.compo
     GeneraCuotaComponent,
     ReciboComponent,
     ConsultarPagosComponent,
+    CnsGeneralComponent,
+    CnsGeneralPagosComponent,
    
 
   ],
@@ -83,7 +96,10 @@ import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.compo
     ReactiveFormsModule,
     FormsModule,
     PipesModule,
+    // NgbModule la usaré cuando actualice la ver de Angular a 15.0.0 o superior
    
-  ]
+  ],
+  providers: []
+  // providers: [{ provide:LOCALE_ID, useValue:'es-DO' }]
 })
 export class PagesModule { }

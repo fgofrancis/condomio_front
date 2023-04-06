@@ -1,6 +1,6 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+ 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -13,9 +13,9 @@ import { ContabilidadModule } from './contabilidad/contabilidad.module';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 //Date Import
-import localePy from '@angular/common/locales/es-DO';
-import {registerLocaleData } from '@angular/common';
-registerLocaleData(localePy,'es');
+// import localePy from '@angular/common/locales/es-DO';
+// import {registerLocaleData } from '@angular/common';
+// registerLocaleData(localePy,'es-DO');
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ registerLocaleData(localePy,'es');
     ContabilidadModule,
     ComponentsModule
   ],
-  providers: [{ provide:LOCALE_ID, useValue:'es' }],
+  providers: [],
+  // providers: [{ provide:LOCALE_ID, useValue:'es-DO' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

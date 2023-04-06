@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
+    <!-- <div>{{ pagos[11].fechageneracion | date: 'dd/MM/yyyy':'Santo Domingo' }}</div> -->
     <div class="col-6">
         <div class="card">
             <h1>Fecha  pago</h1>
@@ -47,7 +48,6 @@
                         <h6 class="card-subtitle">Pagos registrados</h6>
                     </div>
                 </div>
-
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -64,7 +64,9 @@
                             <tr *ngFor="let pago of pagos; let i =index"> 
                                 <td>{{i +1 }}</td>
                                 <td>{{pago.idapartamento.codigo}}</td>
-                                <td>{{pago.fechageneracion |date }}</td>
+                                <td>{{pago.fechageneracion |date:'dd/MM/yyyy' : 'UTC'}}</td>
+                                <!-- <td>{{pago.fechageneracion |date:'dd/MM/yyyy' :'UTC-4'}}</td> -->
+                                <!-- <td>{{ pago.fechageneracion  }}</td> -->
                                 <td>{{pago.monto | number:'1.2-2'}}</td>
                                 <td>{{pago.idformapago.formapago }}</td>
                                 <td class="text-nowrap text-center">
@@ -81,6 +83,13 @@
                                         (click)="reporte(pago)"> 
                                         <!-- <i class='fa fa-print'></i> -->
                                         <i class="fa fa-print" aria-hidden="true"></i>
+                                    </a>
+                                    <a *ngIf="(i+1 >= pagos.length)" class="cursor" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Anular"
+                                        (click)="anularPago(pago)"> 
+                                        <!-- <i class="fa fa-solid fa-circle-xmark"></i> -->
+                                        <i class="fa fa-times" aria-hidden="false" style="font-size:24px"></i>
                                     </a>
 
                                 </td>

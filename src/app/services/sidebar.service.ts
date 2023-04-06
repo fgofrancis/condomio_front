@@ -15,6 +15,8 @@ export class SidebarService {
         {titulo: 'Apartamentos', url:'/nomina/apartamentos'},
         {titulo: 'Aplicar pago', url:'/nomina/recibo'},
         {titulo: 'Consultar Pagos', url:'/nomina/consultar-pagos'},
+        {titulo: 'Consulta General Saldos', url:'/nomina/consulta-general-saldos'},
+        {titulo: 'Consulta General Pagos', url:'/nomina/consulta-general-pagos'},
         {titulo: 'Generar Cuotas', url:'/nomina/generacuotas'},
         {titulo: 'Empleado', url:'/nomina/empleado'},
         {titulo: 'Compañía', url:'/nomina/compania'},

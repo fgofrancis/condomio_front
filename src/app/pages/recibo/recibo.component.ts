@@ -22,6 +22,8 @@ export class ReciboComponent implements OnInit {
   public apartamentoForm!:FormGroup;
   public apartamentos:Apartamento[] = [];
   public totalSaldo:number = 0;
+  public SaldoInput:string = '0';
+
   public idapartamento:string = ''
 
   public montoPago:number = 0;
@@ -40,6 +42,9 @@ export class ReciboComponent implements OnInit {
 
   private buscarCuota$ = new  Observable<any>();
                             
+  public formatoMoneda= (valor:number) =>{
+    return valor.toLocaleString('en-US', {style:'currency', currency:'USD', minimumFractionDigits:2});
+ }
 
   constructor( private _cuotaService:CuotasService,
                private _fb:FormBuilder,
@@ -154,7 +159,11 @@ export class ReciboComponent implements OnInit {
           this.cuotas.forEach((cuota)=>{
               this.totalSaldo += cuota.saldo
           });
+    this.SaldoInput = this.formatoMoneda(this.totalSaldo);
+
   }
+
+
 
   habilitarPago(montoPago:number){
     this.isPagoHabilitado = (montoPago > 0)? true: false;  

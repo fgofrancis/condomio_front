@@ -33,6 +33,8 @@ import { ApartamentoComponent } from './apartamentos/apartamento.component';
 import { GeneraCuotaComponent } from './genera-cuota/genera-cuota.component';
 import { ReciboComponent } from './recibo/recibo.component';
 import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.component';
+import { CnsGeneralComponent } from './cns-general/cns-general.component';
+import { CnsGeneralPagosComponent } from './cns-general-pagos/cns-general-pagos.component';
   
 const routes: Routes = [
   { 
@@ -57,6 +59,8 @@ const routes: Routes = [
       { path:'recibo', component: ReciboComponent, data:{titulo: 'Aplicar pago'}},
       
       { path:'consultar-pagos', component:ConsultarPagosComponent, data:{titulo: 'Consultar Pagos'}},
+      { path:'consulta-general-pagos', component:CnsGeneralPagosComponent, data:{titulo: 'Consulta General Pagos'}},
+      { path:'consulta-general-saldos', component:CnsGeneralComponent, data:{titulo: 'Consulta General Saldos'}},
       
       { path:'asignaciones', component:AsignacionesComponent, data:{titulo: 'Mantenimiento de Asignaciones'}},
       { path:'asignacion/:id', component:AsignacionComponent, data:{titulo: 'Asignaciones'}},

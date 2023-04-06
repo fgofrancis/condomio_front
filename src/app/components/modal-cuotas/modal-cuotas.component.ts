@@ -97,8 +97,11 @@ export class ModalCuotasComponent implements OnInit, OnDestroy {
         { text:' '},
 
         {
-          text:`Estado de Cuenta Apartamento: `
+          // text:`Estado de Cuenta Apartamento: `
           // bold:true
+          text:`ESTADO DE CUENTA APTO: `,
+          bold:true,
+          fontSize: 12,
         },
         {
           text:`${this.cuotas[0].idapartamento.codigo} `,

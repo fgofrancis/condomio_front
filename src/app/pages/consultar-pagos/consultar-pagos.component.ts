@@ -11,6 +11,7 @@ import { Pago } from 'src/app/models/pago.model';
 import { Pagodetalle } from 'src/app/models/pagodetalle.model';
 import { ApartamentosService } from 'src/app/services/apartamentos.service';
 import { ReciboService } from 'src/app/services/recibo.service';
+import Swal from 'sweetalert2';
 
 const FECHABASE = '1972-06-27';
 
@@ -109,11 +110,45 @@ export class ConsultarPagosComponent implements OnInit {
   }
   
 
+  anularPago(pago:Pago){
+
+    let criterio = {idapartamento:this.idapartamento, fechapago:this.fechapago}
+    Swal.fire({
+      title: 'Anular Pago?',
+      text: `Desea anular el pago de fecha ${new Date(pago.fechageneracion).toLocaleString('es-es', { year:"numeric", month:"short", day:"numeric", timeZone:'UTC'})}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, bórrarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // this._apartamentoService.eliminarApartamentoById(apartamento._id)
+        this._reciboService.anularPagoByIdPago(pago._id)
+          .subscribe(
+            (resp:any) => {
+            this.buscarPagos(criterio); // Ojo para manana Denny
+            Swal.fire(
+              'Pago anulado',
+              `El pago de monto RD$ ${ pago.monto } fue anulado correctamente`,
+              'success'
+            )},
+            (err)=>{
+              console.log(err.error.msg);
+              Swal.fire(
+                'No Anulado',
+                err.error.msg,
+                'error')
+            }
+          );
+      }
+    })
+ 
+  };
+
  reporte(pago:Pago){
 
     var resto = (pago.saldodespuesdelpago > pago.saldoantedelpago )
-                ?0
-                :pago.saldodespuesdelpago
+                ? 0
+                : pago.saldodespuesdelpago
 
     let docDefinition:any ={
   
@@ -171,7 +206,7 @@ export class ConsultarPagosComponent implements OnInit {
             ],
             [
               {
-                text:`Fecha de pago: ${new Date(pago.fechageneracion).toLocaleString('es-ES', { year:"numeric", month:"short", day:"numeric"})}`,
+                text:`Fecha de pago: ${new Date(pago.fechageneracion).toLocaleString('es-ES', { year:"numeric", month:"short", day:"numeric", timeZone:'UTC'})}`,
                 fontSize:12,
                 // bold:true,
                 // color:'#047886'
@@ -198,7 +233,6 @@ export class ConsultarPagosComponent implements OnInit {
             ]
           ]
         },
-        // { text:'*** '},
         {
           columns:[
 
@@ -210,12 +244,6 @@ export class ConsultarPagosComponent implements OnInit {
                 fontSize:14
               },
             ],
-            // [
-            //   {
-            //     text: `Fecha recibo: ${ new Date(this.pagodetalles[0].fechageneracion).toLocaleString('es-ES', { year:"numeric", month:"short", day:"numeric"})}`,
-            //     alignment: 'right'
-            //   }
-            // ]
           ]
         },
         {
@@ -311,7 +339,7 @@ export class ConsultarPagosComponent implements OnInit {
             widths: ['*','auto', 'auto'],
             body: [
                     [  {text:'FECHA PAGO', bold:true}, {text:'MONTO PAGO', bold:true}, {text:'FORMA PAGO', bold:true} ],
-                        ...this.pagos.map(p => ([ new Date(p.fechageneracion).toLocaleDateString('es-es', { year:"numeric", month:"short", day:"numeric"}),
+                        ...this.pagos.map(p => ([ new Date(p.fechageneracion).toLocaleDateString('es-es', { year:"numeric", month:"short", day:"numeric",timeZone:'UTC'}),
                              {text: p.monto.toLocaleString('en-ES', {style: 'decimal', currency: 'INR', minimumFractionDigits: 2}), alignment:'right'},
                              {text: p.idformapago.formapago, alignment:'right'}
                           ])

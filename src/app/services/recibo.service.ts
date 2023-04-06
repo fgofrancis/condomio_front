@@ -47,5 +47,19 @@ export class ReciboService {
                       )
   };
 
+  anularPagoByIdPago(id:string){
+    console.log('PAGO ANULADO EN EL SERVICIO!!!!');
+    const url = `${base_url}/pagos/pago/anular/${id}`;
+  
+    return this._http.post(url, this.headers) //this.http.delete(url, this.headers )
+  };
+
+  resumenPagos(anio: number){
+    const url = `${base_url}/pagos/resumen/${anio}`;
+    return this._http.get<any>(url, this.headers )
+                .pipe(
+                  map( (resp: {ok:boolean, pagosPorApartamento:any[]})=>resp.pagosPorApartamento )
+                )
+  }
 
 }

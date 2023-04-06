@@ -183,8 +183,8 @@ export class ApartamentosComponent implements OnInit {
             [
               {
                 // text:`Estado de Cuentas al: ( *** ${this.fechaProcesoMax} *** )`,
-                text:`Estado de Cuentas al:  (  *** ${new Date(this.fechaProcesoMax).toLocaleString('es-es', {  year:"numeric", month:"long", day:"numeric"}) }  *** )`,
-                // text:`Estado de Cuentas al 30 de Noviembre 2022`,
+                // text:`Estado de Cuentas al:  (  *** ${new Date(this.fechaProcesoMax).toLocaleString('es-es', {  year:"numeric", month:"long", day:"numeric" , timeZone:'UTC'}) }  *** )`,
+                text:`Estado de Cuentas al:  (  *** ${new Date('2023-02-28').toLocaleString('es-ES', {  year:"numeric", month:"long", day:"numeric", timeZone:'UTC'}) }  *** )`,
                 bold:true,
                 color: '#047886',
                 fontSize: 13, 
@@ -207,7 +207,7 @@ export class ApartamentosComponent implements OnInit {
               [ {text:'CODIGO', bold:true}, {text:'PROPIETARIO', bold:true},  {text:'CUOTA',bold:true},
                 {text:'ULTIMA CUOTA GENERADA', bold:true}, {text:'BALANCE',bold:true} ],
               ...this.apartamentos.map(p => ([ p.codigo, p.idpropietario.nombre, {text: p.idbloque.cuota.toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right'},
-                                                new Date(p.fechaultimacuota).toLocaleDateString('es-es', {  year:"numeric", month:"short", day:"numeric"}), 
+                                                new Date(p.fechaultimacuota).toLocaleDateString('es-es', {  year:"numeric", month:"short", day:"numeric", timeZone:'UTC'}), 
                                                {text: p.saldomantenimiento.toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2} ),alignment:'right'}
                                               ])
                                       ),
@@ -233,7 +233,7 @@ export class ApartamentosComponent implements OnInit {
             fontSize:14
           },
           {
-            text: `Los apartamentos con fechas de ULTIMA CUOTA GENERADA mayores a la fecha de corte, ${new Date(this.fechaProcesoMax).toLocaleString('es-es', {  year:"numeric", month:"long", day:"numeric"}) }, corresponden a compromisos a futuro producto de pagos por adelantado.`,
+            text: `Los apartamentos con fechas de ULTIMA CUOTA GENERADA mayores a la fecha de corte, ${new Date(this.fechaProcesoMax).toLocaleString('es-es', {  year:"numeric", month:"long", day:"numeric", timeZone:'UTC'}) }, corresponden a compromisos a futuro producto de pagos por adelantado.`,
             alignment: 'left',
             italics: true
           }

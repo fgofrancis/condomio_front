@@ -1,0 +1,38 @@
+<table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Enero</th>
+        <th>Febrero</th>
+        <th>Marzo</th>
+        <th>Abril</th>
+        <th>Mayo</th>
+        <th>Junio</th>
+        <th>Julio</th>
+        <th>Agosto</th>
+        <th>Septiembre</th>
+        <th>Octubre</th>
+        <th>Noviembre</th>
+        <th>Diciembre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let saldo of saldosPorApartamento">
+        <td>{{ saldo.codigo }}</td>
+        <td *ngIf="'ene.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.ene }}</td> // Version nueva de angular
+        <td *ngIf="saldo.saldosPorMes['ene']">{{ saldo.saldosPorMes.ene }}</td> //Version vieja
+        <td *ngIf="'feb.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.feb }}</td>
+        <td *ngIf="'mar.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.mar }}</td>
+        <td *ngIf="'abr.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.abr }}</td>
+        <td *ngIf="'may.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.may }}</td>
+        <td *ngIf="'jun.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.jun }}</td>
+        <td *ngIf="'jul.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.jul }}</td>
+        <td *ngIf="'ago.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.ago }}</td>
+        <td *ngIf="'sep.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.sep }}</td>
+        <td *ngIf="'oct.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.oct }}</td>
+        <td *ngIf="'nov.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.nov }}</td>
+        <td *ngIf="'dic.' in saldo.saldosPorMes">{{ saldo.saldosPorMes.dic }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
