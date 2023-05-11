@@ -35,6 +35,7 @@ import { ReciboComponent } from './recibo/recibo.component';
 import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.component';
 import { CnsGeneralComponent } from './cns-general/cns-general.component';
 import { CnsGeneralPagosComponent } from './cns-general-pagos/cns-general-pagos.component';
+import { GenerarcuotaExtraComponent } from './generarcuota-extra/generarcuota-extra.component';
   
 const routes: Routes = [
   { 
@@ -66,6 +67,7 @@ const routes: Routes = [
       { path:'asignacion/:id', component:AsignacionComponent, data:{titulo: 'Asignaciones'}},
       
       { path:'generacuotas', component:GeneraCuotaComponent, data:{titulo: 'Generar Cuota'}},
+      { path:'generacuotas-extra', component:GenerarcuotaExtraComponent, data:{titulo: 'Generar Cuota Extra'}},
       
       { path:'deducciones', component:DeduccionesComponent, data:{titulo: 'Mantenimiento de Deducciones'}},
       { path:'deduccion/:id', component:DeduccionComponent, data:{titulo: 'DEDUCCION'}},

@@ -48,6 +48,7 @@ import { ReciboComponent } from './recibo/recibo.component';
 import { ConsultarPagosComponent } from './consultar-pagos/consultar-pagos.component';
 import { CnsGeneralComponent } from './cns-general/cns-general.component';
 import { CnsGeneralPagosComponent } from './cns-general-pagos/cns-general-pagos.component';
+import { GenerarcuotaExtraComponent } from './generarcuota-extra/generarcuota-extra.component';
 
 
 // PdfMakeWrapper.setFonts(pdfFonts);
@@ -85,6 +86,7 @@ import { CnsGeneralPagosComponent } from './cns-general-pagos/cns-general-pagos.
     ConsultarPagosComponent,
     CnsGeneralComponent,
     CnsGeneralPagosComponent,
+    GenerarcuotaExtraComponent,
    
 
   ],

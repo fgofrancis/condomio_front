@@ -1,9 +1,9 @@
 
 <div class="row">
     <!-- Fecha  -->
-    <div class="col-6">
+    <div class="col-4">
         <div class="card">
-            <h1>Fecha  proceso</h1>
+            <h1>Fecha proceso</h1>
             <div class="card-body">
                 <div class="form-group">
                     <div class="input-group">
@@ -14,30 +14,40 @@
             </div>
         </div>
     </div>
-     <!-- Ver cuotas Generadas -->
-    <div class="col-6">
+
+    <!-- Monto cuota -->
+    <div class="col-4">
         <div class="card">
-            <div class="card-body" *ngIf="isverApartamentos">
-                <form class="form p-t-20"
-                     [formGroup]="apartamentoForm"
-                     (ngSubmit)="guardarApartamento()">
+            <h1>Monto</h1>
+            <div class="card-body">
+                <input type="number" class="form-control" placeholder="" 
+                [(ngModel)]="montoPago"
+                (keyup)="habilitarPago(montoPago)" style="font-size:xx-large;"
+                />
+            </div>
+        </div>
+    </div>
+
+    <!-- Apartamentos -->
+    <div class="col-4">
+        <div class="card">
+            <h1>Apartamento</h1>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="apartamentoForm" >
                     <div class="form-group">
                         <label for="exampleInputEmail1">Apartamentos</label>
                         <div class="input-group">
-                            <select class="form-control" 
-                                    formControlName="codigo">
-                                <option [value]="1">
-                                    Todos..
+                            <select class="form-control" formControlName="codigo">
+                                <option value="">
+                                    Ninguno
                                 </option>
-                                <option *ngFor="let apartamento of apartamentos"
-                                    [value]="apartamento._id">
-                                    {{apartamento.codigo}}
+                                <option *ngFor="let apartamento of apartamentos" [value]="apartamento._id">
+                                   {{apartamento.codigo}}
                                 </option>
                             </select>
                         </div>
                     </div>
                 </form>
-    
             </div>
         </div>
     </div>
@@ -64,12 +74,12 @@
                 <div class="row">
                     <div class="col-8">
                         <h4 class="card-title">Cuotas </h4>
-                        <h6 class="card-subtitle">Cuotas generadas para el mes de {{fechacuotas | date:'MMMM d, y'}}</h6>
+                        <h6 class="card-subtitle">Cuotas extraordinarias </h6>
                     </div>
                     <div class="col">
                         <div class="text-right">
                             <button class="btn btn-primary" 
-                                    (click)="generarCuota(fechacuotas)"
+                                    (click)="generarCuota(montoPago,idapartamento)"
                                     [disabled]="isbtnGenerarProceso">
                                 <i class="fa fa-hospital-o"></i>
                                 Generar Cuotas
@@ -88,22 +98,36 @@
                                 <th>Fecha cuota</th>
                                 <th>Cuota Monto</th>
                                 <th>Cuota Saldo</th>
-                                <th>Apto Balance</th>
                                 <!-- <th>Fecha Sal</th> -->
                                 <!-- <th class="text-nowrap">Acciones</th> -->
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let cuota of cuotas; let i =index"
-                                [ngClass]="i % 2 === 0 ? 'table-row' : 'table-row-alt'">
+                                [ngClass]="i % 2 === 0 ? 'table-row' : 'table-row-alt' ">
                                 <td>{{i +1 }}</td>
                                 <td>{{cuota.idapartamento.codigo}}</td>
                                 <td>{{cuota.fechageneracion |date:'dd/MM/YYYY' }}</td>
                                 <td>{{cuota.fechacuota |date:'dd/MM/YYYY' }}</td>
                                 <td>{{cuota.monto | number:'1.2-2'}}</td>
                                 <td>{{cuota.saldo | number:'1.2-2'}}</td>
-                                <td>{{cuota.idapartamento.saldomantenimiento| number:'1.2-2'}}</td>
-                            </tr>                     
+                                <!-- <td></td> -->
+
+                                <!-- <td class="text-nowrap text-center">
+                                    <a [routerLink]="['/nomina/bloque', bloque._id]"
+                                       data-toggle="tooltip"
+                                       data-original-title="Editar">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i> 
+                                    </a>
+                                    <a class="cursor" 
+                                       data-toggle="tooltip" 
+                                       data-original-title="Borrar"
+                                       (click)="eliminarBloque(bloque)"> 
+                                       <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td> -->
+                            </tr>
+                            
                         </tbody>
                     </table>
 
@@ -116,5 +140,6 @@
     </div>
 
 </div> 
+
 
 

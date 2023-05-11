@@ -60,9 +60,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let cuota of resumenCuotas">
-                                <td>{{cuota.codigo}}</td>
-                                <td>{{ cuota.saldosPorMes.ene || 0 | number:'1.2-2'  }}</td>
+                            <tr *ngFor="let cuota of resumenCuotas; let i=index"
+                            (mouseover)="onMouseOver(cuota)"
+                            (mouseleave)="onMouseLeave(cuota)"
+                            [ngClass]="i % 2 === 0 ? 'table-row' : 'table-row-alt' ">
+                                <td>{{ cuota.codigo}}</td>
+                                <td>{{ cuota.saldosPorMes.ene || 0 | number:'1.2-2' }}</td>
                                 <td>{{ cuota.saldosPorMes.feb || 0 | number:'1.2-2' }}</td>
                                 <td>{{ cuota.saldosPorMes.mar || 0 | number:'1.2-2' }}</td>
                                 <td>{{ cuota.saldosPorMes.abr || 0 | number:'1.2-2' }}</td>

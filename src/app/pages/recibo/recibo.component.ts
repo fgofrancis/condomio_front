@@ -43,7 +43,7 @@ export class ReciboComponent implements OnInit {
   private buscarCuota$ = new  Observable<any>();
                             
   public formatoMoneda= (valor:number) =>{
-    return valor.toLocaleString('en-US', {style:'currency', currency:'USD', minimumFractionDigits:2});
+    return valor.toLocaleString('en-US', {style:'currency', currency:'USD', minimumFractionDigits:2 });
  }
 
   constructor( private _cuotaService:CuotasService,
@@ -170,9 +170,10 @@ export class ReciboComponent implements OnInit {
   }
 
   catFormapago(){
+   
     this.isNotacredito = false;
     this.formapagoSeleccionada = this.formapagos.find(f => f._id === this.idformapago)!
-
+   
     if (this.formapagoSeleccionada.formapago === 'NotaCR'){
       this.isNotacredito = true;
     }

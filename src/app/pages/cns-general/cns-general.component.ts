@@ -19,6 +19,8 @@ export class CnsGeneralComponent implements OnInit {
   public resumenCuotas: any[]= [];
   public anioSeleccionado:number = 1;
 
+  public highlightedItem:any = null;
+
   constructor( private _cuotaService:CuotasService) { }
 
   ngOnInit(): void {
@@ -132,6 +134,14 @@ export class CnsGeneralComponent implements OnInit {
     )
   }
 
+  onMouseOver(item:any){
+    this.highlightedItem = item;
+  }
+
+  onMouseLeave(item:any){
+    this.highlightedItem = null;
+  }
+  
   reporte(){
    
     //Crear tabla del reporte
@@ -139,11 +149,11 @@ export class CnsGeneralComponent implements OnInit {
       headerRows: 1,
       widths: ['*','auto', 'auto','auto','auto','auto','auto','auto','auto','auto','auto','auto','auto','auto'],
       body: [
-              [  {text:'APTO', bold:true, fontSize:10}, {text:'ENE',  bold:true, fontSize:10}, {text:'FEB', bold:true, fontSize:10},
-                 {text:'MAR', bold:true, fontSize:10},  {text:'ABR',  bold:true, fontSize:10}, {text:'MAY', bold:true, fontSize:10} ,
-                 {text:'JUN', bold:true, fontSize:10},  {text:'JUL',  bold:true, fontSize:10}, {text:'AGO', bold:true, fontSize:10} ,
-                 {text:'SEP', bold:true, fontSize:10},  {text:'OCT',  bold:true, fontSize:10}, {text:'NOV', bold:true, fontSize:10} ,
-                 {text:'DIC', bold:true, fontSize:10}, {text:'TOTAL', bold:true, fontSize:10}
+              [  {text:'APTO', bold:true, fontSize:10, fillColor:'#CCCCCC'}, {text:'ENE',  bold:true, fontSize:10,fillColor:'#CCCCCC'}, {text:'FEB', bold:true, fontSize:10,fillColor:'#CCCCCC'},
+                 {text:'MAR', bold:true, fontSize:10,fillColor:'#CCCCCC'},  {text:'ABR',  bold:true, fontSize:10,fillColor:'#CCCCCC'}, {text:'MAY', bold:true, fontSize:10,fillColor:'#CCCCCC'} ,
+                 {text:'JUN', bold:true, fontSize:10,fillColor:'#CCCCCC'},  {text:'JUL',  bold:true, fontSize:10,fillColor:'#CCCCCC'}, {text:'AGO', bold:true, fontSize:10,fillColor:'#CCCCCC'} ,
+                 {text:'SEP', bold:true, fontSize:10,fillColor:'#CCCCCC'},  {text:'OCT',  bold:true, fontSize:10,fillColor:'#CCCCCC'}, {text:'NOV', bold:true, fontSize:10,fillColor:'#CCCCCC'} ,
+                 {text:'DIC', bold:true, fontSize:10,fillColor:'#CCCCCC'}, {text:'TOTAL', bold:true, fontSize:10,fillColor:'#CCCCCC'}
              ],
              ...this.resumenCuotas.map(p => ([ {text: p.codigo },
                   {text: p.saldosPorMes.ene?.toLocaleString('en-ES', {style: 'decimal', currency: 'INR', minimumFractionDigits: 2}), alignment:'right',fontSize:10 },
@@ -186,7 +196,7 @@ export class CnsGeneralComponent implements OnInit {
     console.log('columnTotals..: ', columnTotals);
 
     //agregar totales al final de la tabla
-    const totalRow = [{ text:'Totales', bold:true}, ...columnTotals.map( total=>({text:total.toLocaleString('en-ES', { style: 'decimal', currency: 'INR', minimumFractionDigits: 2 }),alignment: 'right', fontSize:10 }))];
+    const totalRow = [{ text:'Totales', bold:true}, ...columnTotals.map( total=>({text:total.toLocaleString('en-ES', { style: 'decimal', currency: 'INR', minimumFractionDigits: 2 }),alignment: 'right', fontSize:10, bold:true }))];
     table.body = table.body.concat([totalRow]);
  
     let cantPago = this.resumenCuotas.length;

@@ -11,31 +11,33 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Fecha</th>
-                <th>Monto</th>
-                <th>Saldo</th>
-                <th>Señal</th>
-
-                <!-- <th>Fecha Sal</th> -->
-                <!-- <th class="text-nowrap">Acciones</th> -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let cuota of cuotas; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ cuota.fechacuota | date}}</td>
-                <td>{{ cuota.monto | number: "1.2-2" }}</td>
-                <td>{{ cuota.saldo | number: "1.2-2" }}</td>
-                <td>{{ cuota.senal }}</td>
-
-              </tr>
-            </tbody>
-          </table>
+        <div class="table-container">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="encabezado-tabla">
+                <tr>
+                  <th>No.x</th>
+                  <th>Fecha</th>
+                  <th>Monto</th>
+                  <th>Saldo</th>
+                  <th>Señal</th>
+  
+                  <!-- <th>Fecha Sal</th> -->
+                  <!-- <th class="text-nowrap">Acciones</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cuota of cuotas; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ cuota.fechacuota | date}}</td>
+                  <td>{{ cuota.monto | number: "1.2-2" }}</td>
+                  <td>{{ cuota.saldo | number: "1.2-2" }}</td>
+                  <td>{{ cuota.senal }}</td>
+  
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="text-aling:center">

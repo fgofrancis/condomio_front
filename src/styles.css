@@ -59,3 +59,66 @@
     width: 100%;
     z-index: 999;
 }
+
+.highlight {
+    color:rgb(24, 24, 228);
+}
+/* background-color:lavender; */
+
+.table-row {
+    background-color: white;
+}
+
+.table-row-alt {
+    background-color: lightcyan;
+}
+
+.table-row td {
+    color: black;
+}
+
+.table-row-alt td {
+    color: brown(255, 224, 224);
+}
+
+/* Trabajar con el alto de la columnas, no me funciona */
+td {
+    height: 5px; /* ajusta la altura según tus necesidades */
+}
+
+/* Trabajar con el alto de la columnas, no me funciona */
+tr {
+    height: 50px; /* ajusta la altura según tus necesidades */
+  }
+
+  /* Estilos recomendados por chapGPT*/
+.table-container{
+    height:400px;
+    overflow: auto;
+}
+
+.card-container {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+}
+/* .card-title {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f0f0f0;
+  } */
+  .encabezado-tabla {
+    background-color: #337ab7; /* Cambia el color de fondo según tu preferencia */
+    color: #fff; /* Cambia el color del texto según tu preferencia */
+  }
+  .modal-title {
+    font-weight: bold;
+  }
+  
+  
+  
+  
+  
+  
+
+  
+  

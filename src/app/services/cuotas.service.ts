@@ -36,6 +36,21 @@ export class CuotasService {
     )
   };
 
+  generarCuotasExtra(monto:number, idapto?:string){
+    
+    //Debido a que idapto puede venir undefine o null realizo este if
+    const url = (idapto)
+              ? `${base_url}/cuotas/generarcuotaextraordinaria/${monto}/${idapto}`
+              : `${base_url}/cuotas/generarcuotaextraordinaria/${monto}`
+
+    // const url = `${base_url}/cuotas/generarcuotaextraordinaria/${monto}/${idapto}?`;
+    return this._http.get<any>( url, this.headers)
+                 .pipe(
+                  // map( (resp: {ok:boolean, cuotas:any[], cantidad:number} )=> resp.cuotas )
+                  map( (resp: {ok:boolean, cuotas:any[], cantidad:number} )=>({cuotas: resp.cuotas, cantidad: resp.cantidad}) )
+                 )
+  }
+
   cargarCuotas(){
     const url = `${base_url}/cuotas`;
     return this._http.get<any>( url, this.headers )
@@ -63,8 +78,8 @@ export class CuotasService {
   buscarProcesoCuotasMax(){
     const url = `${base_url}/cuotas/procesocuotamax`;
     return this._http.get<any>(url, this.headers )
-                .pipe( //Denny, me veo obligado a usar un array a pesar de saber q devuelve un solo registro
-                  map( (resp:{ok:boolean, procesocuotamax:Procesocuota[]} )=> resp.procesocuotamax)
+                .pipe(
+                  map((resp: {ok:boolean, endDate:Date})=> resp.endDate)
                 )
   };
 

@@ -48,47 +48,53 @@
                         <h6 class="card-subtitle">Cuotas por mes</h6>
                     </div>
                 </div> -->
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Apto</th>
-                                <th>Ene</th>
-                                <th>Feb</th>
-                                <th>Mar</th>
-                                <th>Abr</th>
-                                <th>May</th>
-                                <th>Jun</th>
-                                <th>Jul</th>
-                                <th>Ago</th>
-                                <th>Sep</th>
-                                <th>Oct</th>
-                                <th>Nov</th>
-                                <th>Dic</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let pagos of resumenPagos">
-                                <td>{{pagos.codigo}}</td>
-                                <td>{{ pagos.pagosPorMes.ene || 0 | number:'1.2-2'  }}</td>
-                                <td>{{ pagos.pagosPorMes.feb || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.mar || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.abr || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.may || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.jun || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.jul || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.ago || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.sep || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.oct || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.nov || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.pagosPorMes.dic || 0 | number:'1.2-2' }}</td>
-                                <td>{{ pagos.total  || 0 | number:'1.2-2' }}</td>
+                <!-- <div class="table-container"> -->
 
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Apto</th>
+                                    <th>Ene</th>
+                                    <th>Feb</th>
+                                    <th>Mar</th>
+                                    <th>Abr</th>
+                                    <th>May</th>
+                                    <th>Jun</th>
+                                    <th>Jul</th>
+                                    <th>Ago</th>
+                                    <th>Sep</th>
+                                    <th>Oct</th>
+                                    <th>Nov</th>
+                                    <th>Dic</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pagos of resumenPagos"
+                                (mouseover)="onMouseOver(pagos)"
+                                (mouseleave)="onMouseLeave(pagos)"
+                                [ngClass]="{ 'highlight':pagos === highlightedItem }">
+                                    <td>{{pagos.codigo}}</td>
+                                    <td>{{ pagos.pagosPorMes.ene || 0 | number:'1.2-2'  }}</td>
+                                    <td>{{ pagos.pagosPorMes.feb || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.mar || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.abr || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.may || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.jun || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.jul || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.ago || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.sep || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.oct || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.nov || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.pagosPorMes.dic || 0 | number:'1.2-2' }}</td>
+                                    <td>{{ pagos.total  || 0 | number:'1.2-2' }}</td>
+    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <!-- </div> -->
                 <div class="row">
                     <div class="col">
                         <div class="text-right">

@@ -1,4 +1,5 @@
-import { ThrowStmt } from '@angular/compiler';
+import * as XLSX from 'xlsx'
+
 import { Component, OnInit } from '@angular/core';
 
 // pdfMake 
@@ -29,19 +30,22 @@ export class ApartamentosComponent implements OnInit {
   public apartamento!:Apartamento
   public cargando:boolean = false;
   public desde:number   = 0;
-  public limite:number  = 5;
+  public limite:number  = 500;
   
   public pagina:number = 5;
   public totalApartamento:number = 0;
   public procesocuotamax : Procesocuota[] = [];
   public fechaProcesoMax! : Date; 
 
+  public highlightedItem:any = null;
 
   constructor( private _apartamentoService:ApartamentosService,
                private _busquedaService:BusquedasService,
                private _cuotaService:CuotasService,
                private _modalCuotasService:ModalCuotasService)
-             { }
+             {
+              // this.buscarProcesoCuotaMax();
+              }
 
   ngOnInit(): void {
      this.cargarApartamentos();
@@ -73,12 +77,8 @@ export class ApartamentosComponent implements OnInit {
 
   buscarProcesoCuotaMax(){
     this._cuotaService.buscarProcesoCuotasMax().subscribe(
-      (resp)=>{
-        this.procesocuotamax = resp;
-      
-         //Denny,the backend send me an array, but could is a object, no an objet´s array
-         this.fechaProcesoMax = resp[0].fechaproceso;
-         console.log('this.fechaProcesoMax..: ', this.fechaProcesoMax)
+      (fecha)=>{
+        this.fechaProcesoMax = fecha
       },
       (err)=>{
         Swal.fire('Informativo',err.error?.msg,'info');
@@ -89,15 +89,15 @@ export class ApartamentosComponent implements OnInit {
 
   imprimirApartamentos(){
       // this.cargando = true;
-      this._apartamentoService.cargarApartamentos()
-      // .pipe( //Denny it debounceTime no save, why?
-      //   debounceTime(1000),
-      //   tap(()=>{ this.buscarProcesoCuotaMax()})
-      // )
-      .subscribe(({total, apartamentos}) =>{
-              this.apartamentos = apartamentos;
+      this._apartamentoService.cargarApartamentos().subscribe(
+        ({total, apartamentos}) =>{
+              this.apartamentos = apartamentos
+              console.log('apartamentos..', apartamentos)
               this.totalApartamento = total;
-      })
+          },
+       (err)=>{
+         console.log(err)
+       })
   };
     
   eliminarApartamento(apartamento: Apartamento){
@@ -148,10 +148,59 @@ export class ApartamentosComponent implements OnInit {
     this.cargarApartamentos();
   };
 
-  reporte(){
+  
+/*
+Esto va en el HTML
+[ngClass]="{ 'highlight':apartamento === highlightedItem }"
+*/
+  onMouseOver(item:any){
+    this.highlightedItem = item;
+  }
 
-    this.imprimirApartamentos();
+  onMouseLeave(item:any){
+    this.highlightedItem = null;
+  }
 
+  async reporte(){
+
+    // this.imprimirApartamentos();
+    let contador = 1;
+
+    let ordenar: {
+      codigo: keyof Apartamento & (string);
+      saldo: keyof Apartamento;
+    } = {
+      codigo: 'codigo',
+      saldo: 'saldomantenimiento',
+    };
+    
+    const ordenarPor = await Swal.fire({
+      title: 'Ordenar por:',
+      input: 'select',
+      inputOptions: {
+        codigo: 'Código',
+        saldo: 'Balance',
+      },
+      inputPlaceholder: 'Selecciona un campo',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Debes seleccionar un campo para ordenar';
+        }
+        return null
+      },
+      backdrop:'static',
+      allowOutsideClick: false
+    });
+
+ 
+    // this.apartamentos.sort( (a,b) => b.saldomantenimiento - a.saldomantenimiento)
+    
+    if(ordenarPor.value === 'saldo'){
+      this.apartamentos.sort((a, b) => Number(b[ordenar.saldo]) - Number(a[ordenar.saldo]));
+    }else if (ordenarPor.value === 'codigo'){
+      this.apartamentos.sort((a, b) => a[ordenar.codigo].toString().localeCompare(b[ordenar.codigo].toString()));
+    }
+    
     let docDefinition:any ={
 
       footer: {
@@ -183,8 +232,8 @@ export class ApartamentosComponent implements OnInit {
             [
               {
                 // text:`Estado de Cuentas al: ( *** ${this.fechaProcesoMax} *** )`,
-                // text:`Estado de Cuentas al:  (  *** ${new Date(this.fechaProcesoMax).toLocaleString('es-es', {  year:"numeric", month:"long", day:"numeric" , timeZone:'UTC'}) }  *** )`,
-                text:`Estado de Cuentas al:  (  *** ${new Date('2023-02-28').toLocaleString('es-ES', {  year:"numeric", month:"long", day:"numeric", timeZone:'UTC'}) }  *** )`,
+                text:`Estado de Cuentas al:  (  *** ${new Date(this.fechaProcesoMax).toLocaleString('es-es', {  year:"numeric", month:"long", day:"numeric" , timeZone:'UTC'}) }  *** )`,
+                // text:`Estado de Cuentas al:  (  *** ${new Date('2023-02-28').toLocaleString('es-ES', {  year:"numeric", month:"long", day:"numeric", timeZone:'UTC'}) }  *** )`,
                 bold:true,
                 color: '#047886',
                 fontSize: 13, 
@@ -202,17 +251,17 @@ export class ApartamentosComponent implements OnInit {
         {
           table:{
             headerRows: 1,
-            widths: ['*','auto', 'auto', 'auto', 'auto'],
+            widths: ['*','auto', 'auto', 'auto', 'auto','auto'],
             body: [
-              [ {text:'CODIGO', bold:true}, {text:'PROPIETARIO', bold:true},  {text:'CUOTA',bold:true},
-                {text:'ULTIMA CUOTA GENERADA', bold:true}, {text:'BALANCE',bold:true} ],
-              ...this.apartamentos.map(p => ([ p.codigo, p.idpropietario.nombre, {text: p.idbloque.cuota.toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right'},
+              [ {text:'No.', bold:true, fillColor:'#CCCCCC' }, {text:'CODIGO', bold:true, fillColor:'#CCCCCC'}, {text:'PROPIETARIO', bold:true, fillColor:'#CCCCCC'},  {text:'CUOTA',bold:true, fillColor:'#CCCCCC'},
+                {text:'ULTIMA CUOTA GENERADA', bold:true, fillColor:'#CCCCCC'}, {text:'BALANCE',bold:true, fillColor:'#CCCCCC'} ],
+              ...this.apartamentos.map(p => ([ contador++, p.codigo, p.idpropietario.nombre, {text: p.idbloque.cuota.toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right'},
                                                 new Date(p.fechaultimacuota).toLocaleDateString('es-es', {  year:"numeric", month:"short", day:"numeric", timeZone:'UTC'}), 
                                                {text: p.saldomantenimiento.toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2} ),alignment:'right'}
                                               ])
                                       ),
               // ...this.invoice.products.map(p => ([p.name, p.price, p.qty, (p.price*p.qty).toFixed(2)])),
-              [{ text: 'Total Apartamentos', colSpan: 1, bold:true}, { text: this.apartamentos.reduce((sum, p)=> sum + (1), 0), bold:true},
+              [{}, { text: 'Total Apartamentos', colSpan: 1, bold:true}, { text: this.apartamentos.reduce((sum, p)=> sum + (1), 0), bold:true},
                { text: this.apartamentos.reduce((sum, p)=> sum + (p.idbloque.cuota), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},{},
                { text: this.apartamentos.reduce((sum, p)=> sum + (p.saldomantenimiento), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true}]
             ]
@@ -243,5 +292,18 @@ export class ApartamentosComponent implements OnInit {
     }
     const pdf = pdfMake.createPdf(docDefinition);
     pdf.open();
+
+    // Convertir el reporte a un archivo de Excel, no lee bien el formato en Excel
+    // pdf.getBuffer(async (buffer)=>{
+
+    //  // Convertir el buffer del archivo PDF a un array de bytes
+    //   const unit8Array = new Uint8Array(buffer);
+
+    //    // Convertir el array de bytes a un archivo de Excel
+    //   const workbook = XLSX.read(unit8Array, {type:'array'});
+    //   XLSX.writeFile( workbook, 'reporte.xls')
+    // });
+    // console.log('** REPORTE ****')
+    // pdf.open();
   }
 }

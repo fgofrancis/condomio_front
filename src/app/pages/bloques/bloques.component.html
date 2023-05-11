@@ -49,7 +49,7 @@
                
                 <div class="table-responsive">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="encabezado-tabla">
                             <tr>
                                 <th>No.</th>
                                 <th>Código</th>
@@ -61,7 +61,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let bloque of bloques; let i=index">
+                            <tr *ngFor="let bloque of bloques; let i=index"
+                                [ngClass]="i % 2 === 0 ? 'table-row' : 'table-row-alt' ">
                                 <td>{{i+1}}</td>
                                 <td>{{bloque.codigo}}</td>
                                 <td>{{bloque.tipo}}</td>

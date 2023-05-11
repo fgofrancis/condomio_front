@@ -48,7 +48,7 @@
                
                 <div class="table-responsive">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="encabezado-tabla">
                             <tr>
                                 <th>No.</th>
                                 <th>Cedula</th>
@@ -61,7 +61,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let propietario of propietarios; let i = index">
+                            <tr *ngFor="let propietario of propietarios; let i = index"
+                                [ngClass]="i % 2 === 0 ? 'table-row' : 'table-row-alt' ">
                                 <td>{{i+1}}</td>
                                 <td>{{propietario.identificacion}}</td>
                                 <td>{{propietario.nombre}}</td>

@@ -49,7 +49,7 @@
                
                 <div class="table-responsive">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="encabezado-tabla">
                             <tr>
                                 <th>No.</th>
                                 <th>Código</th>
@@ -63,7 +63,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let apartamento of apartamentos; let i = index">
+                            <tr *ngFor="let apartamento of apartamentos; let i = index"
+                                (mouseover)="onMouseOver(apartamento)"
+                                (mouseleave)="onMouseLeave(apartamento)"
+                                [ngClass]="i % 2 === 0 ? 'table-row' : 'table-row-alt'">
                                 <td>{{i + 1}}</td>
                                 <td>{{apartamento.codigo}}</td>
                                 <td>{{apartamento.idbloque.codigo}}</td>

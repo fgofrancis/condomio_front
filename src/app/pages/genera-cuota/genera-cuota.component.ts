@@ -78,13 +78,23 @@ export class GeneraCuotaComponent implements OnInit, OnDestroy
    * 
    * @param fechacuotas es simbólico, ya que uso el [(ngModel)] para alimentar la fechacuota
    */
-  generarCuota(fechacuotas:string){
+  generarCuota(fechacuotas:Date){
+
+    let ordenar: {
+      codigo: keyof Cuota['idapartamento'] & string;
+    } = {
+      codigo: 'codigo',
+    };
+    
+
     this.isbtnGenerarProceso = true;
-    this._cuotasService.generarCuotas(this.fechacuotas).subscribe(
+    this._cuotasService.generarCuotas(fechacuotas).subscribe(
       (resp)=>{
+        this.cuotas = resp;
+        this.cuotas.sort((a, b) => a.idapartamento[ordenar.codigo].toString().localeCompare(b.idapartamento[ordenar.codigo].toString()));
         Swal.fire('Cuotas','Proceso generado exitosamente','success');
         this.isverApartamentos= true;
-        this.buscar(terminoSubject$.value);
+        // this.buscar(terminoSubject$.value);
     },
      (err)=>{
         Swal.fire('Informativo',err.error?.msg,'info');
@@ -92,7 +102,7 @@ export class GeneraCuotaComponent implements OnInit, OnDestroy
 
   }
 
-    guardarApartamento(){}
+  guardarApartamento(){}
 
   cargarApartamentos(){
     this._apartamentoService.cargarApartamentos().subscribe(
