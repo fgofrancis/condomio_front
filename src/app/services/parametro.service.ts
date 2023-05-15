@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Parametro} from '../models/parametro.model'
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 const base_url = environment.base_url;
 

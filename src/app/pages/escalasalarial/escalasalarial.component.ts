@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EscalaSalarial } from 'src/app/models/escalaSalaria-model';
-// import { Renglon } from 'src/app/models/renglon.model';
 import { EscalaService } from 'src/app/services/escalas.service';
 import Swal from 'sweetalert2';
 

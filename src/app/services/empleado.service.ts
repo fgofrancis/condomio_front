@@ -77,7 +77,7 @@ export class EmpleadoService {
       apellidos = apell1
     }
 
-    return nombreCompleto =`${nombres} ${apellidos}`// nombres + apellidos
+    return nombreCompleto =`${nombres} ${apellidos}`
     
   }
 }

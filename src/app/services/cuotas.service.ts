@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Cuota } from '../models/cuota.model';
-import { Procesocuota } from '../models/procesocuota.model';
 
 const base_url = environment.base_url;
 

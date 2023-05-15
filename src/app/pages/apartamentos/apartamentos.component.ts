@@ -1,11 +1,9 @@
-import * as XLSX from 'xlsx'
-
 import { Component, OnInit } from '@angular/core';
 
 // pdfMake 
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { debounceTime, tap } from 'rxjs/operators';
+
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 import { Apartamento } from 'src/app/models/apartamento.model';

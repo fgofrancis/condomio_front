@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 // import { Renglon} from '../models/renglon.model'
 import { EscalaSalarial } from '../models/escalaSalaria-model';

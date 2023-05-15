@@ -51,8 +51,6 @@ import { CnsGeneralPagosComponent } from './cns-general-pagos/cns-general-pagos.
 import { GenerarcuotaExtraComponent } from './generarcuota-extra/generarcuota-extra.component';
 
 
-// PdfMakeWrapper.setFonts(pdfFonts);
-
 @NgModule({
   declarations: [
     EmpleadoComponent,
@@ -64,7 +62,6 @@ import { GenerarcuotaExtraComponent } from './generarcuota-extra/generarcuota-ex
     ConstribucionleyComponent,
     PagesComponent,
     AcountSettingsComponent,
-    // RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
     CompaniaComponent,

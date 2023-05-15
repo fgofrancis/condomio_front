@@ -19,8 +19,6 @@ export class RetencionLeyService {
   public smp:number  = 0;
   public svds:number = 0;
 
-  // public arrayP:number[] =[10,20,30];
-
   constructor( private _escalaService:EscalaService,
                private _parametroService:ParametroService,)
    {
@@ -81,7 +79,6 @@ export class RetencionLeyService {
 
    calcSFS(salario:number):number{
 
-    // console.log('salario...: ', salario)
     var ret_sfs = 0;
     if(salario > (this.smp * 10)){
       
@@ -92,7 +89,6 @@ export class RetencionLeyService {
       ret_sfs =  (salario) *  (this.sfs/100);
       ret_sfs = ret_sfs / 2;
     }
-    // console.log('ret_sfs...: ', ret_sfs)
     return ret_sfs
   }
 
@@ -101,17 +97,14 @@ export class RetencionLeyService {
     var ret_afp = 0;
 
     if(salario > (this.smp * 20)){
-      // console.log('Mayor', ret_afp, (this.smp * 20),  this.svds)
       ret_afp =  (this.smp * 20) * (this.svds / 100);
       ret_afp = ret_afp / 2;
 
     }else{
-      //  console.log('Menor', ret_afp, (salario),  this.svds)
       ret_afp =  salario * (this.svds / 100);
       ret_afp = ret_afp / 2;
 
     }
-    // console.log('ret_afp...: ', ret_afp, this.svds )
     return ret_afp
   }
 

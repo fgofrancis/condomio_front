@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Asignacion } from '../models/asignacion.model';
 import { Deduccion } from '../models/deduccion.model';
-import { Empleado } from '../models/empleado.model';
 import { AsignacionService } from './asignacion.service';
 import { ParametroService } from './parametro.service';
 

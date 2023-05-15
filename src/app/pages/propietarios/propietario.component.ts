@@ -66,9 +66,6 @@ export class PropietarioComponent implements OnInit {
       })
     }else{
       //Crear
-      // const data = this.propietarioForm.value;
-      // console.log('propietario..: ', data);
-
       this._propietarioService.crearPropietario(data).subscribe(resp=>{
   
         Swal.fire('Registro','Propietario gravado exitosamente','success');

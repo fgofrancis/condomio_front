@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  Observable } from 'rxjs';
-import { delay, map, switchMap, take, tap } from 'rxjs/operators';
+import { delay, switchMap, tap } from 'rxjs/operators';
 import { Apartamento } from 'src/app/models/apartamento.model';
 import { Cuota } from 'src/app/models/cuota.model';
 import { Formapago } from 'src/app/models/formapago.model';

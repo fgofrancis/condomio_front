@@ -120,18 +120,10 @@ export class ModalCuotasComponent implements OnInit, OnDestroy {
                 bold:true
               },
             ]
-            // [
-            //   {
-            //     text: `Fecha de corte: ${new Date().toLocaleString()}`,
-            //     alignment: 'right'
-            //   }
-            // ]
+            
           ]
         },
         {
-          // layout: 'lightHorizontalLines',
-          // layout: 'headerLineOnly',
-          // background: 'green',
           table:{
             headerRows: 1,
             widths: ['*','auto', 'auto'],

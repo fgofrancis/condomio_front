@@ -1,4 +1,4 @@
-import { isNull } from '@angular/compiler/src/output/output_ast';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -103,7 +103,6 @@ export class EmpleadoMComponent implements OnInit {
 
       this._empleadoService.actualizarEmpleado( data )
           .subscribe(resp =>{
-            // console.log('Actualizado..: ', resp);
             Swal.fire( 'Actualizado',`${this._empleadoService.nombreCompleto(name1,name2, apell1, apell2 )} actualizado correctamente`,
                        'success' );
           })

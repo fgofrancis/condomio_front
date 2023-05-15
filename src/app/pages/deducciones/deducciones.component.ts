@@ -26,14 +26,12 @@ export class DeduccionesComponent implements OnInit {
   cargarDeducciones(){
     this._deduccionService.cargarDeducciones()
         .subscribe(deducciones=>{
-          // console.log(deducciones);
           this.deducciones = deducciones
 
           const deducWork = deducciones.map((arrayWork)=>{
               const _id = arrayWork._id;
               const nombre = arrayWork.empleado.name1;
 
-              // console.log('afp...: ', arrayWork.retencionesLey.sfs)
               const retencionesLey    = arrayWork.retencionesLey.afp +
                                       arrayWork.retencionesLey.sfs +
                                       arrayWork.retencionesLey.retISR! +

@@ -21,7 +21,6 @@ import { ParametrosgeneralesComponent } from './parametrosgenerales/parametrosge
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProcnominaComponent } from './procnomina/procnomina.component';
 import { NominaDetalleComponent} from './procnomina/nomina-detalle.component';
-// import { RxjsComponent } from './rxjs/rxjs.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 import { BloquesComponent } from './bloques/bloques.component';

@@ -73,7 +73,6 @@ reporte(){
             [
               {
                 text:`Cantidad de Apartementos:  *** ${cantPago} *** `,
-                // bold:true,
                 color:'#047886',
                 fontSize: 12
               },
@@ -112,22 +111,7 @@ reporte(){
                         [
                          
                         ],
-                        // [
-                        //   {text:'Totates'},  
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.ene), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.feb), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.mar), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.abr), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.may), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.jun), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.jul), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.ago), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.sep), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.oct), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.nov), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.saldosPorMes.dic), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true},
-                        //   { text: this.resumenCuotas.reduce((sum, p)=> sum + (p.total), 0).toLocaleString('en-ES', {style: 'decimal',currency: 'USD', minimumFractionDigits: 2}), alignment:'right', bold:true}
-                        // ],
+                        
             ]
           },
 

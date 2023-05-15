@@ -55,7 +55,6 @@ export class GeneraCuotaComponent implements OnInit, OnDestroy
     this.cargarApartamentos();
 
     this.apartamentoForm.get('codigo')?.valueChanges.subscribe(resp=>{
-      console.log('Cambio apto', resp);
       terminoSubject$.next(resp);
       this.buscar(resp);
     })
@@ -68,7 +67,6 @@ export class GeneraCuotaComponent implements OnInit, OnDestroy
    //Tengo el resultados del tipo any pero no me gusta.
    this._busquedaService.buscar('cuotas',termino)
    .subscribe( resultados => {
-    console.log('Cuotas cargadas', resultados)
      this.cuotas = resultados as Cuota[]
    });
 

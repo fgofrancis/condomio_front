@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Apartamento } from 'src/app/models/apartamento.model';
-import { Cuota } from 'src/app/models/cuota.model';
 import { ApartamentosService } from 'src/app/services/apartamentos.service';
 import { CuotasService } from 'src/app/services/cuotas.service';
 
@@ -16,7 +15,6 @@ export class GenerarcuotaExtraComponent implements OnInit {
   public apartamentoForm!:FormGroup;
   public cargando:boolean = false;
   public cuotas:any[]=[];
-  // public cuotas:Cuota[]=[];
   public idapartamento:string = '';
   public apartamentos:Apartamento[] = [];
   public fechacuotas!:Date ;
@@ -80,12 +78,10 @@ export class GenerarcuotaExtraComponent implements OnInit {
   };
 
   capturarFechaOnChange(event:any){
-    // console.log(event.target.value);
     this.fechacuotas = event.target.value;
     this.isbtnGenerarProceso = false;
     this.isverApartamentos = false;
     this.cuotas =  [];
-    // console.log('Fecha proceso..:', this.fechacuotas);
   }
 
 }

@@ -91,7 +91,6 @@ export class DeduccionComponent implements OnInit {
     this._empleadoService.cargarEmpleados()
         .subscribe(empleados=>{
           this.empleados = empleados;
-          // console.log('Emple....', this.empleados)
         })
   }
 
@@ -149,9 +148,6 @@ export class DeduccionComponent implements OnInit {
           delay(100)
         )
         .subscribe(deduccion =>{
-          console.log('deduccion..: ', deduccion);
-          console.log('name1..: ', deduccion.empleado.name1);
-          console.log('afp..: ', deduccion.retencionesLey.afp);
           const { empleado:{_id},
                   retencionesLey:  { sfs , afp , adicTSS , retISR},
                   otrasDeducciones:{cxcEmpleado, otrosDescuentos }
