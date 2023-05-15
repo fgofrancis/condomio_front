@@ -1,0 +1,139 @@
+<div class="row">
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Apartamento</h2>
+          <form class="form p-t-20" [formGroup]="apartamentoForm" (ngSubmit)="guardarApartamento()">
+            <div class="form-group">
+              <label>Apartamentos</label>
+              <select class="form-control" formControlName="codigo">
+                <option value="">Ninguno</option>
+                <option *ngFor="let apartamento of apartamentos" [value]="apartamento._id">
+                  {{ apartamento.codigo }}
+                </option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Fecha Pago</h2>
+          <div class="form-group">
+            <input type="date" class="form-control" [(ngModel)]="fechaPago" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h2>Deuda</h2>
+          <div class="form-group">
+            <input type="text" class="form-control" readonly [value]="SaldoInput" placeholder=""
+              style="font-size:xx-large; color:blue" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h2>A pagar</h2>
+          <div class="form-group">
+            <input type="number" class="form-control" placeholder="" [(ngModel)]="montoPago"
+              (keyup)="habilitarPago(montoPago)" style="font-size:xx-large;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Forma pago y comentario -->
+  <div class="row mt-4">
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h2>Forma de pago</h2>
+          <div class="form-group">
+            <select class="form-control" [(ngModel)]="idformapago" (change)="catFormapago()">
+              <option value="">Ninguna</option>
+              <option *ngFor="let item of formapagos" [value]="item._id">
+                {{ item.formapago }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h2>Comentario</h2>
+          <div class="form-group">
+            <textarea type="text" class="form-control" [(ngModel)]="comentarioPago"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="card-title">Cuotas </h4>
+                            <h6 class="card-subtitle">Cuotas pendiente de pago</h6>
+                        </div>
+                        <div class="col">
+                            <div *ngIf="isPagoHabilitado" class="text-right">
+                                <button class="btn btn-primary" (click)="aplicarPago()">
+                                    <i class="fa fa-hospital-o"></i>
+                                    Aplicar pago
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Código</th>
+                                    <th>Fecha cuota</th>
+                                    <th>Monto</th>
+                                    <th>Deuda</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cuota of cuotas; let i =index">
+                                    <td>{{i +1 }}</td>
+                                    <td>{{cuota.idapartamento.codigo}}</td>
+                                    <td>{{cuota.fechacuota|date }}</td>
+                                    <td>{{cuota.monto | number:'1.2-2'}}</td>
+                                    <td>{{cuota.saldo | number:'1.2-2'}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-secundary">Anteriores</button>
+                        &nbsp;
+                        <button class="btn btn-secundary">Siguientes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="radio-container">
+        <input class="radio-input" id="apples" type="radio" name="fruit" />
+        <label class="radio" for="apples">Apples</label>
+        <input class="radio-input" id="oranges" type="radio" name="fruit" />
+        <label class="radio" for="oranges">Oranges</label>
+      </div> -->
